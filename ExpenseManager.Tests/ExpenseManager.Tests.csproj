@@ -106,9 +106,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ExpenseManager\ExpenseManager.csproj">
+    <ProjectReference Include="..\ExpenseManager\WebDelivery.csproj">
       <Project>{1F088E52-5940-473F-A622-1037F839EF5C}</Project>
-      <Name>ExpenseManager</Name>
+      <Name>WebDelivery</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
