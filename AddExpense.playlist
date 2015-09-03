@@ -1,0 +1,1 @@
+<Playlist Version="1.0"><Add Test="ExpenseManager.Tests.WhenRegisteringExpense.shouldAddExpenseToSystemWithCurrentDate" /><Add Test="ExpenseManager.Tests.WhenRegisteringExpense.shouldCheckExpenseAmountIsPositiveNumber" /><Add Test="ExpenseManager.Tests.WhenRegisteringExpense.shouldCheckExpenseCategoryExists" /></Playlist>

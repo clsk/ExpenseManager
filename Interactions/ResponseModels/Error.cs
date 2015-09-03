@@ -13,6 +13,8 @@ namespace Interactions.ResponseModels
             CATEGORY_ALREADY_EXISTS = 0,
             CATEGORY_BOGUS_NAME,
             CATEGORY_NAME_IS_EMPTY,
+            CATEGORY_DOES_NOT_EXIST,
+            EXPENSE_AMOUNT_MUST_BE_POSITIVE
         }
 
         public Codes Code { get; set; }

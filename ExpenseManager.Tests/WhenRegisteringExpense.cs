@@ -23,13 +23,19 @@ using RAMRepository;
 namespace ExpenseManager.Tests
 {
     [TestClass]
-    class WhenRegisteringExpense
+    public class WhenRegisteringExpense
     {
-        string ExpenseCategory = "Gas";
-        double ExpenseAmount = 150.55;
+        static string ExpenseCategory = "Food";
+        static double ExpenseAmount = 150.55;
+
+        [ClassCleanup]
+        public static void cleanup()
+        {
+            RAMRepository.RAMRepository.SharedInstance.Expenses.Clear();
+        }
 
         [TestMethod]
-        void shouldCheckExpenseCategoryExists()
+        public void shouldCheckExpenseCategoryExists()
         {
             ExpenseRepository repository = new ExpenseRepository();
             var interaction = new AddExpenseInteraction<RAMRepository.ExpenseRepository>(new Interactions.RequestModels.AddExpense { Amount = ExpenseAmount, Category = ExpenseCategory}, repository);
@@ -41,26 +47,30 @@ namespace ExpenseManager.Tests
 
 
         [TestMethod]
-        void shouldCheckExpenseAmountIsPositiveNumber()
+        public void shouldCheckExpenseAmountIsPositiveNumber()
         {
             ExpenseRepository repository = new ExpenseRepository();
             var interaction = new AddExpenseInteraction<RAMRepository.ExpenseRepository>(new Interactions.RequestModels.AddExpense { Amount = -44.56, Category = ExpenseCategory}, repository);
             interaction.performAction();
             var response = interaction.ResponseModel;
             Assert.IsTrue(response.Error.HasValue);
-            Assert.AreEqual<Interactions.ResponseModels.Error.Codes>(response.Error.Value.Code, Interactions.ResponseModels.Error.Codes.EXPENSE_AMOUNT_IS_NEGATIVE);
-
+            Assert.AreEqual<Interactions.ResponseModels.Error.Codes>(response.Error.Value.Code, Interactions.ResponseModels.Error.Codes.EXPENSE_AMOUNT_MUST_BE_POSITIVE);
         }
 
         [TestMethod]
-        void shouldAddExpenseToSystemWithCurrentDate()
-        {
+        public void shouldAddExpenseToSystemWithCurrentDate()
+        { 
+            // Add category manully
+            CategoryRepository categoryRepository = new CategoryRepository();
+            categoryRepository.Add(new Entities.Category { Name = ExpenseCategory });
+
+
             ExpenseRepository repository = new ExpenseRepository();
-            var interaction = new AddExpenseInteraction<RAMRepository.ExpenseRepository>(new Interactions.RequestModels.AddExpense { Amount = -44.56, Category = ExpenseCategory}, repository);
+            var interaction = new AddExpenseInteraction<RAMRepository.ExpenseRepository>(new Interactions.RequestModels.AddExpense { Amount = ExpenseAmount, Category = ExpenseCategory}, repository);
             interaction.performAction();
             var response = interaction.ResponseModel;
             Assert.IsFalse(response.Error.HasValue);
-            Entities.Expense expense = repository.GetExpenseById(response.ExpenseId);
+            Entities.Expense expense = repository.GetExpenseById(response.Id);
             Assert.IsNotNull(expense);
             Assert.AreEqual<DateTime>(expense.Date, DateTime.Today.Date);
         }

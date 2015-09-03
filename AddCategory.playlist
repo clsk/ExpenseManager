@@ -1,0 +1,1 @@
+<Playlist Version="1.0"><Add Test="ExpenseManager.Tests.WhenRegisteringCategory.shouldNotAlreadyExist" /><Add Test="ExpenseManager.Tests.WhenRegisteringCategory.shouldCheckForBogusName" /><Add Test="ExpenseManager.Tests.WhenRegisteringCategory.shouldAddCategoryToSystem" /><Add Test="ExpenseManager.Tests.WhenRegisteringCategory.shouldCheckForEmptyName" /></Playlist>

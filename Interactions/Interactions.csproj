@@ -41,10 +41,13 @@
   <ItemGroup>
     <Compile Include="AbstractInteraction.cs" />
     <Compile Include="AddCategoryInteraction.cs" />
+    <Compile Include="AddExpenseInteraction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestModels\AddCategory.cs" />
+    <Compile Include="RequestModels\AddExpense.cs" />
     <Compile Include="ResponseModels\DefaultResponse.cs" />
     <Compile Include="ResponseModels\Error.cs" />
+    <Compile Include="ResponseModels\IDResponse.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Entities\Entities.csproj">

@@ -30,7 +30,7 @@ namespace RAMRepository
         {
             try 
             {
-                Expenses.Add(category, new Dictionary<uint, Expense>());
+                Expenses.Add(category, new Dictionary<int, Expense>());
             } 
             catch(ArgumentException) 
             {
@@ -54,6 +54,6 @@ namespace RAMRepository
             return Exists(new Category { Name = name });
         }
 
-        private static Dictionary<Category, Dictionary<uint, Expense>> Expenses { get { return RAMRepository.SharedInstance.Expenses; } }
+        private static Dictionary<Category, Dictionary<int, Expense>> Expenses { get { return RAMRepository.SharedInstance.Expenses; } }
     }
 }

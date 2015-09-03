@@ -40,7 +40,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Exceptions\CategoryAlreadyExistsException.cs" />
+    <Compile Include="Exceptions\CategoryDoesNotExistException.cs" />
     <Compile Include="ICategoryRepository.cs" />
+    <Compile Include="IExpenseRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

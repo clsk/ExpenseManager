@@ -7,11 +7,11 @@ using Entities;
 
 namespace RAMRepository
 {
-    internal class RAMRepository
+    public class RAMRepository
     {
         private RAMRepository()
         {
-            Expenses = new Dictionary<Category, Dictionary<uint, Expense>>(new CategoryEqualityComparer());
+            Expenses = new Dictionary<Category, Dictionary<int, Expense>>(new CategoryEqualityComparer());
         }
 
         private static RAMRepository sharedInstance;
@@ -27,6 +27,6 @@ namespace RAMRepository
             }
         }
 
-        public Dictionary<Category, Dictionary<uint, Expense>> Expenses;
+        public Dictionary<Category, Dictionary<int, Expense>> Expenses;
     }
 }
