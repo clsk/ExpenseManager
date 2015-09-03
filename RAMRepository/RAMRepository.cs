@@ -11,7 +11,7 @@ namespace RAMRepository
     {
         private RAMRepository()
         {
-            Categories = new HashSet<Category>(new CategoryEqualityComparer());
+            Expenses = new Dictionary<Category, Dictionary<uint, Expense>>(new CategoryEqualityComparer());
         }
 
         private static RAMRepository sharedInstance;
@@ -27,6 +27,6 @@ namespace RAMRepository
             }
         }
 
-        public HashSet<Category> Categories;
+        public Dictionary<Category, Dictionary<uint, Expense>> Expenses;
     }
 }

@@ -28,7 +28,11 @@ namespace RAMRepository
 
         public void Add(Category category) 
         {
-            if (false == Categories.Add(category))
+            try 
+            {
+                Expenses.Add(category, new Dictionary<uint, Expense>());
+            } 
+            catch(ArgumentException) 
             {
                 throw new Repositories.Exceptions.CategoryAlreadyExistsException();
             }
@@ -39,9 +43,10 @@ namespace RAMRepository
         {
             throw new NotImplementedException();
         }
+
         public bool Exists(Category category)
         {
-            return Categories.Contains(category);
+            return Expenses.ContainsKey(category);
         }
 
         public bool Exists(string name)
@@ -49,6 +54,6 @@ namespace RAMRepository
             return Exists(new Category { Name = name });
         }
 
-        private static HashSet<Category> Categories { get { return RAMRepository.SharedInstance.Categories; } }
+        private static Dictionary<Category, Dictionary<uint, Expense>> Expenses { get { return RAMRepository.SharedInstance.Expenses; } }
     }
 }
