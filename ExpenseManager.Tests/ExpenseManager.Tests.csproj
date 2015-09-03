@@ -98,6 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WhenRegisteringCategory.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
@@ -106,9 +107,21 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ExpenseManager\WebDelivery.csproj">
-      <Project>{1F088E52-5940-473F-A622-1037F839EF5C}</Project>
-      <Name>WebDelivery</Name>
+    <ProjectReference Include="..\Entities\Entities.csproj">
+      <Project>{cb803d13-0021-4891-bf35-46227337e472}</Project>
+      <Name>Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Interactions\Interactions.csproj">
+      <Project>{1403d55d-0b4d-4d0a-b522-83ba5f3a4684}</Project>
+      <Name>Interactions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RAMRepository\RAMRepositories.csproj">
+      <Project>{6dcf520c-6d0a-4853-8897-6c0afd616888}</Project>
+      <Name>RAMRepositories</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Repositories\Repositories.csproj">
+      <Project>{1c1ba28f-ff37-43e6-b8f7-3423e86dd641}</Project>
+      <Name>Repositories</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
