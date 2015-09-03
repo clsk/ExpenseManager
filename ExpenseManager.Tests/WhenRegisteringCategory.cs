@@ -21,6 +21,11 @@ namespace ExpenseManager.Tests
     public class WhenRegisteringCategory
     {
         private static readonly string CategoryName = "Gas";
+        [ClassCleanup]
+        public static void cleanup()
+        {
+            RAMRepository.RAMRepository.SharedInstance.Expenses.Clear();
+        }
 
         [TestMethod]
         public void shouldCheckForEmptyName()
