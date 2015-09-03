@@ -15,22 +15,29 @@ using Entities;
 * want to see a summary especifying how much I spent in each expense
 * category in a period of time.
 *
-* Given: That the user has registered expenses
+* Given: A time range
 * When: Summarizing expense by category
-* Then: Get All expenses sorted by category
+* Then: Get expenses within date range
 */
 
 namespace ExpenseManager.Tests
 {
     public class WhenSummarazingExpensesByCategory
     {
-        [TestMethod]
-        public void shouldGetAllExpensesSortedByCategory()
+        static Category gasCategory  = new Category { Name = "Gas" };       
+        static Category foodCategory = new Category { Name = "Food"};
+        static Category gymCategory = new Category { Name = "Gym" };
+        static Expense gas0 = new Expense { Amount = 55.43, Category = gasCategory, Date = DateTime.Today};
+        static Expense gas1 = new Expense { Amount = 23.43, Category = gasCategory, Date = DateTime.Today.AddDays(2)};
+        static Expense food0 = new Expense { Amount = 88.11, Category = foodCategory, Date = DateTime.Today.AddDays(3)};
+        static Expense food1 = new Expense { Amount = 55.11, Category = foodCategory, Date = DateTime.Today.AddDays(4)};
+        static Expense gym0 = new Expense { Amount = 44.93, Category = gymCategory, Date = DateTime.Today.AddDays(5)};
+        static Expense gym1 = new Expense { Amount = 12.93, Category = gymCategory, Date = DateTime.Today.AddDays(6)};
+
+        [ClassInitialize]
+        public static void initialize()
         {
             // Create categories manually
-            Category gasCategory  = new Category { Name = "Gas" };       
-            Category foodCategory = new Category { Name = "Food"};
-            Category gymCategory = new Category { Name = "Gym" };
             CategoryRepository categoryRepository = new CategoryRepository();
             categoryRepository.Add(gasCategory);
             categoryRepository.Add(foodCategory);
@@ -38,44 +45,59 @@ namespace ExpenseManager.Tests
 
             // Create expenses manually
             ExpenseRepository expenseRepository = new ExpenseRepository();
-            var gas0 = new Expense { Amount = 55.43, Category = gasCategory};
             gas0.ExpenseId = expenseRepository.Add(gas0);
-            var gas1 = new Expense { Amount = 23.43, Category = gasCategory};
             gas1.ExpenseId = expenseRepository.Add(gas1);
-
-            var food0 = new Expense { Amount = 88.11, Category = foodCategory};
             food0.ExpenseId = expenseRepository.Add(food0);
-            var food1 = new Expense { Amount = 55.11, Category = foodCategory};
             food0.ExpenseId = expenseRepository.Add(food1);
-
-            var gym0 = new Expense { Amount = 44.93, Category = gymCategory};
             gym0.ExpenseId = expenseRepository.Add(gym0);
-            var gym1 = new Expense { Amount = 12.93, Category = gymCategory};
             gym1.ExpenseId = expenseRepository.Add(gym1);
+        }
+
+        [ClassCleanup]
+        public static void cleanup()
+        {
+            RAMRepository.RAMRepository.SharedInstance.Expenses.Clear();
+        }
 
 
-            var interaction = new SummarizeExpensesInteraction<RAMRepository.ExpenseRepository>(repository);
+        [TestMethod]
+        public void shouldGetAllExpensesSortedByCategory()
+        {
+            ExpenseRepository expenseRepository = new ExpenseRepository();
+            SummarizeExpenses request = new SummarizeExpenses { From = DateTime.Today.Date, To = DateTime.Today.Date.AddDays(6) };
+            
+            var interaction = new SummarizeExpensesInteraction<RAMRepository.ExpenseRepository>(request, repository);
             interaction.performAction();
             var response = interaction.ResponseModel;
             Assert.IsFalse(response.Error.HasValue);
 
-            Dictionary<CategoryResponse, <int, ExpenseResponse>> expenses = response.Expenses;
+            Dictionary<string, int> summary = response.Summary;
 
-            Assert.AreEqual(shouldGetAllExpensesSortedByCategory.Count, 3);
-            Assert.IsTrue(expenses[gasCategory].ContainsKey(gas0.ExpenseId));
-            Assert.AreEqual(expenses[gasCategory][gas0.ExpenseId].Amount, gas0.Amount);
-            Assert.IsTrue(expenses[gasCategory].ContainsKey(gas1.ExpenseId));
-            Assert.AreEqual(expenses[gasCategory][gas1.ExpenseId].Amount, gas1.Amount);
-
-            Assert.IsTrue(expenses[foodCategory].ContainsKey(food0.ExpenseId));
-            Assert.AreEqual(expenses[foodCategory][food0.ExpenseId].Amount, food0.Amount);
-            Assert.IsTrue(expenses[foodCategory].ContainsKey(food1.ExpenseId));
-            Assert.AreEqual(expenses[foodCategory][food1.ExpenseId].Amount, food1.Amount);
-
-            Assert.IsTrue(expenses[foodCategory].ContainsKey(gym0.ExpenseId));
-            Assert.AreEqual(expenses[foodCategory][gym0.ExpenseId].Amount, gym0.Amount);
-            Assert.IsTrue(expenses[foodCategory].ContainsKey(gym1.ExpenseId));
-            Assert.AreEqual(expenses[foodCategory][gym1.ExpenseId].Amount, gym1.Amount);
+            Assert.AreEqual(summary.Count, 3);
+            Assert.AreEqual(summary[gasCategory.Name], gas0.Amount + gas1.Amount);
+            Assert.AreEqual(summary[gymCategory.Name], gym0.Amount + gym1.Amount);
+            Assert.AreEqual(summary[foodCategory.Name], food0.Amount + food1.Amount);
         }
+
+        [TestMethod]
+        public void shouldOnlyGetExpensesWithDateRange()
+        {
+            ExpenseRepository expenseRepository = new ExpenseRepository();
+            SummarizeExpenses request = new SummarizeExpenses { From = DateTime.Today.Date.AddDays(1), To = DateTime.Today.Date.AddDays(4) };
+            
+            var interaction = new SummarizeExpensesInteraction<RAMRepository.ExpenseRepository>(request, repository);
+            interaction.performAction();
+            var response = interaction.ResponseModel;
+            Assert.IsFalse(response.Error.HasValue);
+
+            Dictionary<string, int> summary = response.Summary;
+
+            Assert.AreEqual(summary.Count, 3);
+            Assert.AreEqual(summary[gasCategory.Name], gas1.Amount);
+            Assert.AreEqual(summary[foodCategory.Name], food0.Amount + food1.Amount);
+            Assert.AreEqual(summary[gymCategory.Name], gym0.Amount);
+
+        }
+
     }
 }
