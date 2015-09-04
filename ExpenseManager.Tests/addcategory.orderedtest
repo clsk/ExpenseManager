@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<OrderedTest name="AddCategory" storage="\\psf\home\documents\visual studio 2013\projects\expensemanager\expensemanager.tests\addcategory.orderedtest" id="12d055c4-8263-408a-9c5f-d0b66b8825bb" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestLinks>
+    <TestLink id="e2d62b0c-6f0a-d7fe-7eb2-4224e7a54f31" name="shouldCheckForEmptyName" storage="bin\debug\expensemanager.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <TestLink id="309361df-62c7-9485-facb-ac8ec8d8be42" name="shouldCheckForBogusName" storage="bin\debug\expensemanager.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <TestLink id="21f97480-6038-adf7-5294-631eb98bbbf1" name="shouldAddCategoryToSystem" storage="bin\debug\expensemanager.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <TestLink id="245fbd5c-8216-00b4-0a68-e225aea54409" name="shouldNotAlreadyExist" storage="bin\debug\expensemanager.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  </TestLinks>
+</OrderedTest>

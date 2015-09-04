@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<OrderedTest name="AddExpense" storage="\\psf\home\documents\visual studio 2013\projects\expensemanager\expensemanager.tests\addexpense.orderedtest" id="f22a17ad-8d05-4a31-bbcd-66e33d9d0038" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestLinks>
+    <TestLink id="bb888fb4-9cd3-00b8-5061-367bc1899729" name="shouldCheckExpenseCategoryExists" storage="bin\debug\expensemanager.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <TestLink id="0b414c6b-2fa8-ac06-5264-2ea7bac96224" name="shouldCheckExpenseAmountIsPositiveNumber" storage="bin\debug\expensemanager.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <TestLink id="66c23cee-fcb9-210a-0a51-bffa2b53c94e" name="shouldAddExpenseToSystemWithCurrentDate" storage="bin\debug\expensemanager.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  </TestLinks>
+</OrderedTest>

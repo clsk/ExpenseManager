@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<OrderedTest name="SummarizeExpenses" storage="\\psf\home\documents\visual studio 2013\projects\expensemanager\expensemanager.tests\summarizeexpenses.orderedtest" id="aabe8177-f9f5-4fe4-a003-b8149f09b668" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestLinks>
+    <TestLink id="37595f73-5117-e8d2-a98b-6cea3beaf17b" name="shouldCheckForInvalidRange" storage="bin\debug\expensemanager.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <TestLink id="749933b8-2609-c586-f118-518a7e803f44" name="shouldGetAllExpensesSortedByCategory" storage="bin\debug\expensemanager.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <TestLink id="86cfd8de-d23f-c1a8-0c23-73ea6636702f" name="shouldOnlyGetExpensesWithDateRange" storage="bin\debug\expensemanager.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  </TestLinks>
+</OrderedTest>
