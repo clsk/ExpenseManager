@@ -15,13 +15,14 @@ using Entities;
 * want to see a summary especifying how much I spent in each expense
 * category in a period of time.
 *
-* Given: A time range
+* Given: A valid time range
 * When: Summarizing expense by category
-* Then: Get expenses within date range
+* Then: Get expenses within the date range (inclusive)
 */
 
 namespace ExpenseManager.Tests
 {
+    [TestClass]
     public class WhenSummarazingExpensesByCategory
     {
         static Category gasCategory  = new Category { Name = "Gas" };       
@@ -35,8 +36,9 @@ namespace ExpenseManager.Tests
         static Expense gym1 = new Expense { Amount = 12.93, Category = gymCategory, Date = DateTime.Today.AddDays(6)};
 
         [ClassInitialize]
-        public static void initialize()
+        public static void initialize(TestContext context)
         {
+            RAMRepository.RAMRepository.SharedInstance.Expenses.Clear();
             // Create categories manually
             CategoryRepository categoryRepository = new CategoryRepository();
             categoryRepository.Add(gasCategory);
@@ -59,11 +61,23 @@ namespace ExpenseManager.Tests
             RAMRepository.RAMRepository.SharedInstance.Expenses.Clear();
         }
 
+        [TestMethod]
+        public void shouldCheckForInvalidRange()
+        {
+            ExpenseRepository repository = new ExpenseRepository();
+            SummarizeExpenses request = new SummarizeExpenses { From = DateTime.Today.Date, To = DateTime.Today.Date.AddDays(-1) };
+            
+            var interaction = new SummarizeExpensesInteraction<RAMRepository.ExpenseRepository>(request, repository);
+            interaction.performAction();
+            var response = interaction.ResponseModel;
+            Assert.IsTrue(response.Error.HasValue);
+            Assert.AreEqual(Error.Codes.DATE_RANGE_INVALID, response.Error.Value.Code);
+        }
 
         [TestMethod]
         public void shouldGetAllExpensesSortedByCategory()
         {
-            ExpenseRepository expenseRepository = new ExpenseRepository();
+            ExpenseRepository repository = new ExpenseRepository();
             SummarizeExpenses request = new SummarizeExpenses { From = DateTime.Today.Date, To = DateTime.Today.Date.AddDays(6) };
             
             var interaction = new SummarizeExpensesInteraction<RAMRepository.ExpenseRepository>(request, repository);
@@ -71,33 +85,31 @@ namespace ExpenseManager.Tests
             var response = interaction.ResponseModel;
             Assert.IsFalse(response.Error.HasValue);
 
-            Dictionary<string, int> summary = response.Summary;
+            Dictionary<string, double> summary = response.Expenses;
 
             Assert.AreEqual(summary.Count, 3);
             Assert.AreEqual(summary[gasCategory.Name], gas0.Amount + gas1.Amount);
-            Assert.AreEqual(summary[gymCategory.Name], gym0.Amount + gym1.Amount);
             Assert.AreEqual(summary[foodCategory.Name], food0.Amount + food1.Amount);
+            Assert.AreEqual(summary[gymCategory.Name], gym0.Amount + gym1.Amount);
         }
 
         [TestMethod]
         public void shouldOnlyGetExpensesWithDateRange()
         {
-            ExpenseRepository expenseRepository = new ExpenseRepository();
-            SummarizeExpenses request = new SummarizeExpenses { From = DateTime.Today.Date.AddDays(1), To = DateTime.Today.Date.AddDays(4) };
+            ExpenseRepository repository = new ExpenseRepository();
+            SummarizeExpenses request = new SummarizeExpenses { From = DateTime.Today.Date.AddDays(1), To = DateTime.Today.Date.AddDays(5) };
             
             var interaction = new SummarizeExpensesInteraction<RAMRepository.ExpenseRepository>(request, repository);
             interaction.performAction();
             var response = interaction.ResponseModel;
             Assert.IsFalse(response.Error.HasValue);
 
-            Dictionary<string, int> summary = response.Summary;
+            Dictionary<string, double> summary = response.Expenses;
 
             Assert.AreEqual(summary.Count, 3);
             Assert.AreEqual(summary[gasCategory.Name], gas1.Amount);
             Assert.AreEqual(summary[foodCategory.Name], food0.Amount + food1.Amount);
             Assert.AreEqual(summary[gymCategory.Name], gym0.Amount);
-
         }
-
     }
 }

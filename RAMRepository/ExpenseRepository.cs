@@ -50,6 +50,22 @@ namespace RAMRepository
             return null;
         }
 
+        public Dictionary<string, double> GetExpenseSummaryByCategory(DateTime from, DateTime to)
+        {
+            Dictionary<string, double> expensesByCategory = new Dictionary<string,double>();
+            foreach (var categoryExpenses in Expenses)
+            {
+                double summary = Expenses[categoryExpenses.Key]
+                    .Where(kvp => kvp.Value.Date.Date >= from && kvp.Value.Date.Date <= to)
+                    .Select(idExpense => idExpense.Value.Amount)
+                    .Sum();
+
+                expensesByCategory.Add(categoryExpenses.Key.Name, summary);
+            }
+
+            return expensesByCategory;
+        }
+
         private static Dictionary<Category, Dictionary<int, Expense>> Expenses { get { return RAMRepository.SharedInstance.Expenses; } }
     }
 }
