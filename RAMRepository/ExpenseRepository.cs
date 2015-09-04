@@ -66,6 +66,14 @@ namespace RAMRepository
             return expensesByCategory;
         }
 
+
+        public List<Expense> GetExpenses(DateTime from, DateTime to)
+        {
+            return Expenses
+                .SelectMany(kvp => kvp.Value.Values)
+                .Where(expense => expense.Date.Date >= from && expense.Date.Date <= to).ToList();
+        }
+
         private static Dictionary<Category, Dictionary<int, Expense>> Expenses { get { return RAMRepository.SharedInstance.Expenses; } }
     }
 }

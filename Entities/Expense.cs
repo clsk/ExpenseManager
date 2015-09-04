@@ -12,5 +12,17 @@ namespace Entities
         public Category Category { get; set; }
         public double Amount { get; set; }
         public DateTime Date { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Expense) 
+            {
+                return ExpenseId == ((Expense)obj).ExpenseId
+                    && Category.Name == ((Expense)obj).Category.Name
+                    && Amount == ((Expense)obj).Amount
+                    && Date == ((Expense)obj).Date;
+            }
+            return base.Equals(obj);
+        }
     }
 }

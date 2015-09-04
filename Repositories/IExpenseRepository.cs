@@ -13,5 +13,6 @@ namespace Repositories
         void Remove(Expense expense);
         Expense GetExpenseById(int id);
         Dictionary<string, double> GetExpenseSummaryByCategory(DateTime from, DateTime to);
+        List<Expense> GetExpenses(DateTime from, DateTime to);
     }
 }

@@ -77,20 +77,22 @@ namespace ExpenseManager.Tests
         public void shouldGetAllExpenses()
         {
             ExpenseRepository repository = new ExpenseRepository();
-            SummarizeExpenses request = new SummarizeExpenses { From = DateTime.Today.Date, To = DateTime.Today.Date.AddDays(6) };
+            ListExpenses request = new ListExpenses { From = DateTime.Today.Date, To = DateTime.Today.Date.AddDays(6) };
             
-            var interaction = new SummarizeExpensesInteraction<RAMRepository.ExpenseRepository>(request, repository);
+            var interaction = new ListExpensesInteraction<RAMRepository.ExpenseRepository>(request, repository);
             interaction.performAction();
             var response = interaction.ResponseModel;
             Assert.IsFalse(response.Error.HasValue);
 
-            Dictionary<string, double> summary = response.Expenses;
+            var expenses = response.Expenses.Select(x => new Expense() { Amount = x.Amount, Date = x.Date, Category = new Category() { Name = x.Category}, ExpenseId = x.ExpenseId }).ToList();
 
-            Assert.AreEqual(summary.Count, 6);
-            Assert.IsTrue(summary.Contains(gas1));
-            Assert.IsTrue(summary.Contains(food0));
-            Assert.IsTrue(summary.Contains(food1));
-            Assert.IsTrue(summary.Contains(gym0));
+            Assert.AreEqual(expenses.Count, 6);
+            Assert.IsTrue(expenses.Contains(gas0));
+            Assert.IsTrue(expenses.Contains(gas1));
+            Assert.IsTrue(expenses.Contains(food0));
+            Assert.IsTrue(expenses.Contains(food1));
+            Assert.IsTrue(expenses.Contains(gym0));
+            Assert.IsTrue(expenses.Contains(gym1));
         }
 
         [TestMethod]
@@ -104,13 +106,13 @@ namespace ExpenseManager.Tests
             var response = interaction.ResponseModel;
             Assert.IsFalse(response.Error.HasValue);
 
-            List<Expense> summary = response.Expenses;
+            var expenses = response.Expenses.Select(x => new Expense() { Amount = x.Amount, Date = x.Date, Category = new Category() { Name = x.Category}, ExpenseId = x.ExpenseId }).ToList();
 
-            Assert.AreEqual(summary.Count, 6);
-            Assert.IsTrue(summary.Contains(gas1));
-            Assert.IsTrue(summary.Contains(food0));
-            Assert.IsTrue(summary.Contains(food1));
-            Assert.IsTrue(summary.Contains(gym0));
+            Assert.AreEqual(expenses.Count, 4);
+            Assert.IsTrue(expenses.Contains(gas1));
+            Assert.IsTrue(expenses.Contains(food0));
+            Assert.IsTrue(expenses.Contains(food1));
+            Assert.IsTrue(expenses.Contains(gym0));
         }
     }
 }
