@@ -57,6 +57,10 @@
     <Compile Include="SummarizeExpensesInteraction.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\EFRepositories\EFRepositories.csproj">
+      <Project>{0de8f2f7-e940-4d9c-9d1a-8dba0f197686}</Project>
+      <Name>EFRepositories</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Entities\Entities.csproj">
       <Project>{cb803d13-0021-4891-bf35-46227337e472}</Project>
       <Name>Entities</Name>

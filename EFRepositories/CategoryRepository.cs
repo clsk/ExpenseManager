@@ -8,9 +8,9 @@ using Entities;
 
 namespace EFRepositories
 {
-    class CategoryRepository : Repositories.ICategoryRepository
+    public class CategoryRepository : Repositories.ICategoryRepository
     {
-        void Add(Category category)
+        public void Add(Category category)
         {
             using (var db = new DBContext())
             {
@@ -19,12 +19,12 @@ namespace EFRepositories
             }
         }
 
-        void Remove(Category category)
+        public void Remove(Category category)
         {
             throw new NotImplementedException();
         }
 
-        bool Exists(Category category)
+        public bool Exists(Category category)
         {
             using (var db = new DBContext())
             {
@@ -32,11 +32,9 @@ namespace EFRepositories
             }
         }
 
-        bool Exists(string name)
+        public bool Exists(string name)
         {
             return Exists(new Category { Name = name });
-        }
-
         }
 
     }

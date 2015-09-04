@@ -10,11 +10,13 @@ using Entities;
 namespace Interactions
 {
     public class AddCategoryInteraction<RepositoryType> :
-        AbstractInteraction<RequestModels.AddCategory, ResponseModels.DefaultResponse, RepositoryType> where RepositoryType : ICategoryRepository 
+        AbstractInteraction<RequestModels.AddCategory, ResponseModels.DefaultResponse, RepositoryType> 
+        where RepositoryType : ICategoryRepository, new()
     {
         public AddCategoryInteraction(RequestModels.AddCategory requestModel, RepositoryType repository) : base(requestModel, repository)
         {
         }
+
 
         public override RepositoryType Repository { get; set; }
 
@@ -39,6 +41,14 @@ namespace Interactions
             {
                 ResponseModel = new ResponseModels.DefaultResponse(new ResponseModels.Error { Code = ResponseModels.Error.Codes.CATEGORY_ALREADY_EXISTS, Message = "Category Already Exists" });
             }
+        }
+    }
+
+    public class AddCategoryInteraction : AddCategoryInteraction<EFRepositories.CategoryRepository> 
+    { 
+        public AddCategoryInteraction(RequestModels.AddCategory requestModel) : 
+            base(requestModel, new EFRepositories.CategoryRepository())
+        {
         }
     }
 }
