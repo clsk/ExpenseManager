@@ -14,8 +14,15 @@ namespace EFRepositories
         {
             using (var db = new DBContext())
             {
-                db.Categories.Add(category);
-                db.SaveChanges();
+                try
+                {
+                    db.Categories.Add(category);
+                    db.SaveChanges();
+                }
+                catch (System.Data.Entity.Infrastructure.DbUpdateException)
+                {
+                    throw new Repositories.Exceptions.CategoryAlreadyExistsException();
+                }
             }
         }
 

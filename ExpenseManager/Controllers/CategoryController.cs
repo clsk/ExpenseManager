@@ -32,8 +32,13 @@ namespace ExpenseManager.Controllers
             var interaction = new AddCategoryInteraction(new Interactions.RequestModels.AddCategory { Name = Request.Form["Name"] });
             interaction.performAction();
             var response = interaction.ResponseModel;
+            if (response.Error.HasValue)
+            {
+                return RedirectToAction("Index", "Home").Error(response.Error.Value.Message);
 
-            return RedirectToAction("Index");
+            }
+
+            return RedirectToAction("Index", "Home");
         }
 
     }

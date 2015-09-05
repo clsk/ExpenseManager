@@ -54,4 +54,7 @@ _ReSharper*/
 #
 ~$*
        
+
+# Database Files
+ExpenseManager/App_Data/
 # End of File
