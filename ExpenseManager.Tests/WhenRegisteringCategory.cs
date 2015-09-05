@@ -22,8 +22,8 @@ namespace ExpenseManager.Tests
     {
         private static readonly string CategoryName = "Gas";
 
-        [ClassCleanup]
-        public static void cleanup()
+        [TestCleanup]
+        public void cleanup()
         {
             RAMRepository.RAMRepository.SharedInstance.Expenses.Clear();
         }
@@ -65,6 +65,7 @@ namespace ExpenseManager.Tests
         public void shouldNotAlreadyExist()
         {
             CategoryRepository repository = new CategoryRepository();
+            repository.Add(new Entities.Category {Name = CategoryName});
             var interaction = new AddCategoryInteraction<RAMRepository.CategoryRepository>(new Interactions.RequestModels.AddCategory { Name = CategoryName }, repository);
             interaction.performAction();
             var response = interaction.ResponseModel;

@@ -35,8 +35,8 @@ namespace ExpenseManager.Tests
         static Expense gym0 = new Expense { Amount = 44.93, Category = gymCategory, Date = DateTime.Today.AddDays(5)};
         static Expense gym1 = new Expense { Amount = 12.93, Category = gymCategory, Date = DateTime.Today.AddDays(6)};
 
-        [ClassInitialize]
-        public static void initialize(TestContext context)
+        [TestInitialize]
+        public void initialize()
         {
             RAMRepository.RAMRepository.SharedInstance.Expenses.Clear();
             // Create categories manually
@@ -55,8 +55,8 @@ namespace ExpenseManager.Tests
             gym1.ExpenseId = expenseRepository.Add(gym1);
         }
 
-        [ClassCleanup]
-        public static void cleanup()
+        [TestCleanup]
+        public void cleanup()
         {
             RAMRepository.RAMRepository.SharedInstance.Expenses.Clear();
         }

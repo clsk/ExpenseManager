@@ -28,8 +28,8 @@ namespace ExpenseManager.Tests
         static string ExpenseCategory = "Food";
         static double ExpenseAmount = 150.55;
 
-        [ClassCleanup]
-        public static void cleanup()
+        [TestCleanup]
+        public void cleanup()
         {
             RAMRepository.RAMRepository.SharedInstance.Expenses.Clear();
         }
@@ -44,7 +44,6 @@ namespace ExpenseManager.Tests
             Assert.IsTrue(response.Error.HasValue);
             Assert.AreEqual<Interactions.ResponseModels.Error.Codes>(response.Error.Value.Code, Interactions.ResponseModels.Error.Codes.CATEGORY_DOES_NOT_EXIST);
         }
-
 
         [TestMethod]
         public void shouldCheckExpenseAmountIsPositiveNumber()
