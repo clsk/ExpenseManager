@@ -10,6 +10,7 @@ namespace Repositories
     public interface ICategoryRepository
     {
         void Add(Category category);
+        List<Category> GetCategories();
         void Remove(Category category);
         bool Exists(Category category);
         bool Exists(string name);

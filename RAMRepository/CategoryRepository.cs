@@ -54,6 +54,11 @@ namespace RAMRepository
             return Exists(new Category { Name = name });
         }
 
+        public List<Category> GetCategories()
+        {
+            return Expenses.Keys.ToList();
+        }
+
         private static Dictionary<Category, Dictionary<int, Expense>> Expenses { get { return RAMRepository.SharedInstance.Expenses; } }
     }
 }

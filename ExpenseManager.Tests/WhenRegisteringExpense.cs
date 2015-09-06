@@ -15,7 +15,8 @@ using RAMRepository;
  *
  * Given: That the expense category already exists
  * When: The user registers an expense 
- * Then: Check that the expense amount is a positive number
+ * Then: Get List of available categories
+ *       Check that the expense amount is a positive number
  *       and Add the Expense to the system with today's date  
  */
 
@@ -32,6 +33,23 @@ namespace ExpenseManager.Tests
         public void cleanup()
         {
             RAMRepository.RAMRepository.SharedInstance.Expenses.Clear();
+        }
+
+        [TestMethod]
+        public void shouldGetListOfAvailableCategories()
+        {
+            CategoryRepository repository = new CategoryRepository();
+            repository.Add(new Entities.Category { Name = "Gas" });
+            repository.Add(new Entities.Category { Name = "Food" });
+            repository.Add(new Entities.Category { Name = "Gym" });
+
+            var interaction = new ListCategoriesInteraction<RAMRepository.CategoryRepository>(repository);
+            interaction.performAction();
+            var categories = interaction.ResponseModel.Categories;
+
+            Assert.IsTrue(categories.Contains("Gas"));
+            Assert.IsTrue(categories.Contains("Food"));
+            Assert.IsTrue(categories.Contains("Gym"));
         }
 
         [TestMethod]

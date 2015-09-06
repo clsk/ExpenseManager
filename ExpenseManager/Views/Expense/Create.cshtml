@@ -1,0 +1,22 @@
+﻿@model Interactions.ResponseModels.CategoryListResponse
+
+@{
+    ViewBag.Title = "Create Expense";
+}
+
+<h2>Create Expense</h2>
+<form method="post" action="Create">
+    <label for="Category">Select Category</label>
+    <select name="Category" id="Category">
+        @foreach (var category in Model.Categories)
+        {
+            <option value="@category">@category</option>
+        }
+    </select>
+    <br/>
+    <label for="Amount">Enter Amount</label>
+    <input id="Amount" name="Amount" type="text" />
+    <br/>
+    <button type="button">Cancel</button>
+    <button type="submit">Add Expense</button>
+</form>

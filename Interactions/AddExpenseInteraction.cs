@@ -37,4 +37,13 @@ namespace Interactions
             }
         }
     }
+
+    public class AddExpenseInteraction : AddExpenseInteraction<EFRepositories.ExpenseRepository> 
+    { 
+        public AddExpenseInteraction(RequestModels.AddExpense requestModel) : 
+            base(requestModel, new EFRepositories.ExpenseRepository())
+        {
+        }
+    }
+
 }

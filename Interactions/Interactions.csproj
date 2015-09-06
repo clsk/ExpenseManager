@@ -42,12 +42,14 @@
     <Compile Include="AbstractInteraction.cs" />
     <Compile Include="AddCategoryInteraction.cs" />
     <Compile Include="AddExpenseInteraction.cs" />
+    <Compile Include="ListCategoriesInteraction.cs" />
     <Compile Include="ListExpensesInteraction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestModels\AddCategory.cs" />
     <Compile Include="RequestModels\AddExpense.cs" />
     <Compile Include="RequestModels\ListExpenses.cs" />
     <Compile Include="RequestModels\SummarizeExpenses.cs" />
+    <Compile Include="ResponseModels\CategoryListResponse.cs" />
     <Compile Include="ResponseModels\DefaultResponse.cs" />
     <Compile Include="ResponseModels\Error.cs" />
     <Compile Include="ResponseModels\ExpenseListResponse.cs" />

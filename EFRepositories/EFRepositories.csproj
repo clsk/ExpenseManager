@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="CategoryRepository.cs" />
     <Compile Include="DBContexts.cs" />
+    <Compile Include="ExpenseRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

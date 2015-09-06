@@ -44,5 +44,12 @@ namespace EFRepositories
             return Exists(new Category { Name = name });
         }
 
+        public List<Category> GetCategories()
+        {
+            using (var db = new DBContext())
+            {
+                return db.Categories.ToList();
+            }
+        }
     }
 }
