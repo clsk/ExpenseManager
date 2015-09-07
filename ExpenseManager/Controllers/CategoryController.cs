@@ -34,11 +34,11 @@ namespace ExpenseManager.Controllers
             var response = interaction.ResponseModel;
             if (response.Error.HasValue)
             {
-                return RedirectToAction("Index", "Home").Error(response.Error.Value.Message);
+                return RedirectToAction("Index", "Home").Error(response.Error.Value.Message).Error(response.Error.Value.Message);
 
             }
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Home").Success("Category Added Successfully!");
         }
 
     }
