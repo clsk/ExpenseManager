@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 using Entities;
 
 namespace EFRepositories
@@ -37,16 +38,14 @@ namespace EFRepositories
         public Dictionary<string, double> GetExpenseSummaryByCategory(DateTime from, DateTime to)
         {
             Dictionary<string, double> expensesByCategory = new Dictionary<string,double>();
-            using (var db = new DBContext())
+            var db = new DBContext();
+            foreach (var category in db.Categories)
             {
-                foreach (var category in db.Categories)
-                {
-                    double summary = db.Expenses
-                        .Where(expense => expense.Date.Date >= from && expense.Date.Date <= to)
-                        .Select(expense => expense.Amount)
-                        .Sum();
-                    expensesByCategory.Add(category.Name, summary);
-                }
+                double summary = db.Expenses
+                    .Where(expense => expense.Date.Date >= from && expense.Date.Date <= to)
+                    .Select(expense => expense.Amount)
+                    .Sum();
+                expensesByCategory.Add(category.Name, summary);
             }
 
             return expensesByCategory;
@@ -55,12 +54,11 @@ namespace EFRepositories
 
         public List<Expense> GetExpenses(DateTime from, DateTime to)
         {
-            using (var db = new DBContext())
-            {
-                return db.Expenses
-                    .Where(expense => expense.Date.Date >= from && expense.Date.Date <= to)
-                    .ToList();
-            }
+            var db = new DBContext();
+            return db.Expenses
+                .Where(expense => DbFunctions.TruncateTime(expense.Date) >= from 
+                    && DbFunctions.TruncateTime(expense.Date) <= to)
+                .ToList();
         }
     }
 }

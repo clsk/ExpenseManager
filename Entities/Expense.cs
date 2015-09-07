@@ -8,8 +8,9 @@ namespace Entities
 {
     public class Expense
     {
+        public Expense() { }
         public int ExpenseId { get; set; }
-        public Category Category { get; set; }
+        public virtual Category Category { get; set; }
         public double Amount { get; set; }
         public DateTime Date { get; set; }
 

@@ -9,8 +9,8 @@ namespace Entities
 {
     public class Category
     {
+        public Category() { }
         
-        [Key]
         public string Name { get; set; }
     }
 }

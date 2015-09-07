@@ -21,10 +21,23 @@ namespace ExpenseManager.Controllers
         // GET: /Expense/List
         public ActionResult List()
         {
+            string fromString = Request.Params["from"];
+            string toString = Request.Params["to"];
+            DateTime from = fromString != null && fromString.Length > 2 ? DateTime.Parse(fromString) : DateTime.MinValue;
+            DateTime to   = toString != null && toString.Length > 2 ? DateTime.Parse(toString) : DateTime.Today.Date;
 
-            return View();
+            var requestModel = new Interactions.RequestModels.ListExpenses { From = from, To = to };
+            var interaction = new ListExpensesInteraction(requestModel);
+            interaction.performAction();
+            if (interaction.ResponseModel.Error.HasValue)
+            {
+                return View("Index", "Home").Error(interaction.ResponseModel.Error.Value.Message);
+            }
+            else
+            {
+                return View(interaction.ResponseModel);
+            }
         }
-
 
         //
         // GET: /Expense/Create

@@ -3,3 +3,20 @@
 }
 
 <h2>Index</h2>
+
+<h3>List Expenses</h3>
+<form>
+    <label for="ListFrom">From:</label>
+    <input  id="ListFrom" type="date" name="ListFrom" />
+    <label for="ListTo">To:</label>
+    <input  id="ListTo" type="date" name="ListTo" />
+    <button id="ListFormBtn" onclick="listInRange('Expense', 'List', 'ListFrom', 'ListTo'); return false;">List Expenses</button>
+</form>
+
+<script type="text/javascript">
+    function listInRange(route, method, fromId, toId) {
+        //$("#flash-messages").flashMessage({ message: "test" })
+        var url = '/' + route + '/' + method + '?from=' + $('#' + fromId).val() + '&to=' + $('#' + toId).val();
+        window.location = url;
+    }
+</script>
