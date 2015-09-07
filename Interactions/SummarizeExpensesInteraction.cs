@@ -28,4 +28,12 @@ namespace Interactions
             }
         }
     }
+
+    public class SummarizeExpensesInteraction : SummarizeExpensesInteraction<EFRepositories.ExpenseRepository> 
+    { 
+        public SummarizeExpensesInteraction(RequestModels.SummarizeExpenses requestModel) : 
+            base(requestModel, new EFRepositories.ExpenseRepository())
+        {
+        }
+    }
 }

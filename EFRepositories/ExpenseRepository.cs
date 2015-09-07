@@ -42,7 +42,8 @@ namespace EFRepositories
             foreach (var category in db.Categories)
             {
                 double summary = db.Expenses
-                    .Where(expense => expense.Date.Date >= from && expense.Date.Date <= to)
+                    .Where(expense => DbFunctions.TruncateTime(expense.Date) >= from 
+                        && DbFunctions.TruncateTime(expense.Date) <= to)
                     .Select(expense => expense.Amount)
                     .Sum();
                 expensesByCategory.Add(category.Name, summary);

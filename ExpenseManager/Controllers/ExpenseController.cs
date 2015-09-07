@@ -40,6 +40,29 @@ namespace ExpenseManager.Controllers
         }
 
         //
+        // GET: /Expense/Summarize
+        public ActionResult Summarize()
+        {
+            string fromString = Request.Params["from"];
+            string toString = Request.Params["to"];
+            DateTime from = fromString != null && fromString.Length > 2 ? DateTime.Parse(fromString) : DateTime.MinValue;
+            DateTime to   = toString != null && toString.Length > 2 ? DateTime.Parse(toString) : DateTime.Today.Date;
+
+            var requestModel = new Interactions.RequestModels.SummarizeExpenses { From = from, To = to };
+            var interaction = new SummarizeExpensesInteraction(requestModel);
+            interaction.performAction();
+            if (interaction.ResponseModel.Error.HasValue)
+            {
+                return View("Index", "Home").Error(interaction.ResponseModel.Error.Value.Message);
+            }
+            else
+            {
+                return View(interaction.ResponseModel);
+            }
+        }
+
+
+        //
         // GET: /Expense/Create
         public ActionResult Create()
         {

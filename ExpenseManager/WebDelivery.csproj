@@ -221,6 +221,7 @@
     <Content Include="Views\Shared\_Flash.cshtml" />
     <Content Include="Views\Expense\Create.cshtml" />
     <Content Include="Views\Expense\List.cshtml" />
+    <Content Include="Views\Expense\Summarize.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,24 @@
+﻿@model Interactions.ResponseModels.ExpensesSummaryResponse
+
+@{
+    ViewBag.Title = "Summarize";
+}
+
+<h2>Summary of Expenses</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Category</th>
+            <th>Spent</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var expense in Model.Expenses)
+        {
+            <tr>
+                <td>@expense.Key</td>
+                <td>@expense.Value</td>
+            </tr>
+        }
+    </tbody>
+</table>

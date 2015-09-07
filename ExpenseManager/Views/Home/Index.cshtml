@@ -13,6 +13,17 @@
     <button id="ListFormBtn" onclick="listInRange('Expense', 'List', 'ListFrom', 'ListTo'); return false;">List Expenses</button>
 </form>
 
+<br />
+<h3>Summarize Expenses</h3>
+<form>
+    <label for="SummarizeFrom">From:</label>
+    <input  id="SummarizeFrom" type="date" name="SummarizeFrom" />
+    <label for="SummarizeTo">To:</label>
+    <input  id="SummarizeTo" type="date" name="SummarizeTo" />
+    <button id="SummarizeFormBtn" onclick="listInRange('Expense', 'Summarize', 'SummarizeFrom', 'SummarizeTo'); return false;">Summarize Expenses</button>
+</form>
+
+
 <script type="text/javascript">
     function listInRange(route, method, fromId, toId) {
         //$("#flash-messages").flashMessage({ message: "test" })
